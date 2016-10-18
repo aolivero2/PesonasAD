@@ -279,9 +279,10 @@ public class Helper {
         return aux;
     }
     
-    public static void llenarTabla(JTable tabla, ArrayList<Persona> personas){
+    public static void llenarTabla(JTable tabla, String ruta){
         DefaultTableModel tm;
         int nf;
+        ArrayList<Persona> personas = traerDatos(ruta);
         tm = (DefaultTableModel)tabla.getModel();
         limpiadoTabla(tabla);
         nf = personas.size();
@@ -313,8 +314,7 @@ public class Helper {
         } catch (ClassNotFoundException ex) {
              System.out.println(ex.getMessage());
         }
-        
-        return personas;
+           return personas;
     } 
     
     
