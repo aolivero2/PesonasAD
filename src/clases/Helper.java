@@ -6,7 +6,13 @@
 package clases;
 
 import java.awt.Component;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -287,6 +293,31 @@ public class Helper {
            tabla.setValueAt(personas.get(i).getApellido(), i, 3);
         }
     }
+    
+    public static ArrayList traerDatos(String ruta){
+        FileInputStream archivo;
+        ObjectInputStream entrada;
+        ArrayList personas = new ArrayList();
+        Object p;
+        
+        try {
+            archivo = new FileInputStream(ruta);
+            entrada = new ObjectInputStream(archivo);
+            while((p=entrada.readObject())!=null){
+                personas.add(p);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+             System.out.println(ex.getMessage());
+        }
+        
+        return personas;
+    } 
+    
+    
     
 
 }
