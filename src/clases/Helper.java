@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -317,7 +319,16 @@ public class Helper {
            return personas;
     } 
     
-    
+    public static void volcado(ObjectOutputStream salida,ArrayList personas ){
+        for (int i = 0; i < personas.size(); i++) {
+            try {
+                salida.writeObject(personas.get(i));
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        }
+    }
     
 
 }

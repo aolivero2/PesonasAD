@@ -7,6 +7,7 @@ package interfaz;
 
 import clases.Helper;
 import clases.Persona;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -33,11 +34,12 @@ public class Agregar extends javax.swing.JDialog {
         initComponents();
         ruta = "src/datos/personas.txt";
         try {
-            //personas = new ArrayList();
+            personas = Helper.traerDatos(ruta);
             salida = new ObjectOutputStream(new FileOutputStream(ruta));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        Helper.volcado(salida, personas);
         Helper.llenarTabla(tblTablaPersonas, ruta);
     }
 
@@ -211,7 +213,9 @@ public class Agregar extends javax.swing.JDialog {
     private void tblTablaPersonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaPersonasMouseClicked
         int i;
         Persona p;
+        ArrayList<Persona> personas = Helper.traerDatos(ruta);
         i = tblTablaPersonas.getSelectedRow();
+        
         p = personas.get(i);
 
         txtCedula.setText(p.getCedula());
@@ -224,9 +228,19 @@ public class Agregar extends javax.swing.JDialog {
     private void cmdEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEliminarActionPerformed
         int i, op;
         op = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar a esta persona?", "Eliminar", JOptionPane.YES_NO_OPTION);
+        
+        ArrayList<Persona> personas = Helper.traerDatos(ruta);
         if (op == JOptionPane.YES_OPTION) {
             i = tblTablaPersonas.getSelectedRow();
             personas.remove(i);
+            try {
+                salida = new ObjectOutputStream(new FileOutputStream(ruta));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Helper.volcado(salida, personas);
             Helper.llenarTabla(tblTablaPersonas, ruta);
             txtCedula.setText("");
             txtNombre.setText("");
