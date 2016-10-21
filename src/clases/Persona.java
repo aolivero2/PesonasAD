@@ -7,7 +7,6 @@
 package clases;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
@@ -18,11 +17,21 @@ public class Persona implements java.io.Serializable{
     private String cedula;
     private String nombre;
     private String apellido;
+    private String sexo;
 
-    public Persona(String cedula, String nombre, String apellido) {
+    public Persona(String cedula, String nombre, String apellido, String sexo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.sexo = sexo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public String getCedula() {
