@@ -6,6 +6,8 @@
 
 package interfaz;
 
+import clases.Helper;
+
 /**
  *
  * @author rmorales1
@@ -15,8 +17,10 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+     String ruta;
     public Principal() {
         initComponents();
+          ruta = "src/datos/personas.txt";
     }
 
     /**
@@ -29,16 +33,24 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         lblImagen = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnOpciones = new javax.swing.JMenu();
         mnAgregar = new javax.swing.JMenuItem();
-        mnReportes = new javax.swing.JMenuItem();
+        mnReportes = new javax.swing.JMenu();
+        mnListados = new javax.swing.JMenu();
+        mnListadoPersonas = new javax.swing.JMenuItem();
+        mnListadoPorSexo = new javax.swing.JMenuItem();
+        mnCantidades = new javax.swing.JMenu();
+        mnCantidadPersonasIngresadas = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnSalir = new javax.swing.JMenuItem();
 
         jMenu2.setText("jMenu2");
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PERSONAS");
@@ -59,6 +71,39 @@ public class Principal extends javax.swing.JFrame {
         mnOpciones.add(mnAgregar);
 
         mnReportes.setText("Reportes");
+
+        mnListados.setText("Listados");
+
+        mnListadoPersonas.setText("Listado de Personas");
+        mnListadoPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnListadoPersonasActionPerformed(evt);
+            }
+        });
+        mnListados.add(mnListadoPersonas);
+
+        mnListadoPorSexo.setText("Listado por Sexo");
+        mnListadoPorSexo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnListadoPorSexoActionPerformed(evt);
+            }
+        });
+        mnListados.add(mnListadoPorSexo);
+
+        mnReportes.add(mnListados);
+
+        mnCantidades.setText("Cantidades");
+
+        mnCantidadPersonasIngresadas.setText("Cantidad de Personas Ingresadas");
+        mnCantidadPersonasIngresadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCantidadPersonasIngresadasActionPerformed(evt);
+            }
+        });
+        mnCantidades.add(mnCantidadPersonasIngresadas);
+
+        mnReportes.add(mnCantidades);
+
         mnOpciones.add(mnReportes);
         mnOpciones.add(jSeparator1);
 
@@ -101,6 +146,23 @@ public class Principal extends javax.swing.JFrame {
       System.exit(0);
     }//GEN-LAST:event_mnSalirActionPerformed
 
+    private void mnListadoPorSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListadoPorSexoActionPerformed
+       ListadoPorSexo lps = new ListadoPorSexo(this,true);
+       lps.setVisible(true);
+    }//GEN-LAST:event_mnListadoPorSexoActionPerformed
+
+    private void mnCantidadPersonasIngresadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCantidadPersonasIngresadasActionPerformed
+        int cont;
+        cont = Helper.traerDatos(ruta).size();
+        Helper.mensaje(this, "El número de personas ingresadas es: "+cont, 1);
+        
+    }//GEN-LAST:event_mnCantidadPersonasIngresadasActionPerformed
+
+    private void mnListadoPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnListadoPersonasActionPerformed
+        ListadoCompleto lc = new ListadoCompleto(this,true);
+        lc.setVisible(true);
+    }//GEN-LAST:event_mnListadoPersonasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -137,14 +199,20 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lblImagen;
     private javax.swing.JMenuItem mnAgregar;
+    private javax.swing.JMenuItem mnCantidadPersonasIngresadas;
+    private javax.swing.JMenu mnCantidades;
+    private javax.swing.JMenuItem mnListadoPersonas;
+    private javax.swing.JMenuItem mnListadoPorSexo;
+    private javax.swing.JMenu mnListados;
     private javax.swing.JMenu mnOpciones;
-    private javax.swing.JMenuItem mnReportes;
+    private javax.swing.JMenu mnReportes;
     private javax.swing.JMenuItem mnSalir;
     // End of variables declaration//GEN-END:variables
 }

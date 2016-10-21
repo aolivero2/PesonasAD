@@ -298,6 +298,22 @@ public class Helper {
         }
     }
     
+    public static void llenarTabla(JTable tabla, ArrayList<Persona> personas){
+        DefaultTableModel tm;
+        int nf;
+        tm = (DefaultTableModel)tabla.getModel();
+        limpiadoTabla(tabla);
+        nf = personas.size();
+        tm.setRowCount(nf);
+        for (int i = 0; i < nf; i++) {
+           tabla.setValueAt(i+1, i, 0);
+           tabla.setValueAt(personas.get(i).getCedula(), i, 1);
+           tabla.setValueAt(personas.get(i).getNombre(), i, 2);
+           tabla.setValueAt(personas.get(i).getApellido(), i, 3);
+            tabla.setValueAt(personas.get(i).getSexo(), i, 4);
+        }
+    }
+    
     public static ArrayList traerDatos(String ruta){
         FileInputStream archivo;
         ObjectInputStream entrada;
@@ -329,6 +345,19 @@ public class Helper {
             }
             
         }
+    }
+    
+    public static void listadoPorSexo(JTable tabla, String ruta, String sexo ){
+        ArrayList<Persona> personas = traerDatos(ruta);
+        ArrayList<Persona> personasFiltradas = new ArrayList();
+        for (int i = 0; i < personas.size(); i++) {
+          if(personas.get(i).getSexo().equals(sexo)){
+              personasFiltradas.add(personas.get(i));
+          }
+            
+        }
+        llenarTabla(tabla, personasFiltradas);
+        
     }
     
 
